@@ -12,47 +12,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Check, ChevronsUpDown, Hash, X } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { frameworks } from '@/lib/data';
+import { Check, ChevronDown, ChevronsUpDown, Hash, X } from 'lucide-react';
 import * as React from 'react';
-
-const frameworks = [
-  {
-    value: 'next.js',
-    label: 'Next.js',
-    shortcut: '1',
-  },
-  {
-    value: 'sveltekit',
-    label: 'SvelteKit is longer than usual',
-    shortcut: '2',
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
-    shortcut: '3',
-  },
-  {
-    value: 'remix',
-    label: 'Remix',
-    shortcut: '4',
-  },
-  {
-    value: 'astro',
-    label: 'Astro',
-    shortcut: '5',
-  },
-  {
-    value: 'gatsby',
-    label: 'Gatsby',
-    shortcut: '6',
-  },
-  {
-    value: 'react',
-    label: 'React',
-    group: 'Non-React',
-    shortcut: '7',
-  },
-];
 
 export default function Component() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
@@ -61,7 +29,7 @@ export default function Component() {
   const [valueVisible, setValueVisible] = React.useState('');
 
   return (
-    <div className="dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg bg-background p-4">
+    <div className="dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg p-4">
       {/* Invisible Placeholder Combobox */}
       <div className="flex flex-col gap-2">
         <span className="text-sm text-foreground">
@@ -71,31 +39,41 @@ export default function Component() {
           hover to see shortcut
         </span>
         <Popover open={openInvisible} onOpenChange={setOpenInvisible}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={openInvisible}
-              className="w-full justify-between bg-gray-100/5 text-foreground hover:bg-gray-100/10"
-            >
-              <div className="flex items-center gap-2">
-                <Hash className="h-4 w-4 shrink-0 opacity-50" />
-                {valueInvisible
-                  ? frameworks.find(
-                      (framework) => framework.value === valueInvisible
-                    )?.label
-                  : 'Select framework...'}
-              </div>
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[300px] bg-background p-0">
-            <Command className="bg-background">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={openInvisible}
+                    className="w-full justify-between text-foreground"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Hash className="h-4 w-4 shrink-0 opacity-50" />
+                      {valueInvisible
+                        ? frameworks.find(
+                            (framework) => framework.value === valueInvisible
+                          )?.label
+                        : 'Select framework...'}
+                    </div>
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Select framework ⌘ E</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <PopoverContent className="w-[300px] bg-gray-100 p-0">
+            <Command className="bg-gray-100">
               <CommandInput
                 placeholder="Search..."
                 className="text-foreground"
               />
               <CommandEmpty>No framework found.</CommandEmpty>
+
               <CommandList>
                 <CommandGroup>
                   {frameworks.map((framework) => (
@@ -146,19 +124,17 @@ export default function Component() {
               variant="outline"
               role="combobox"
               aria-expanded={openVisible}
-              className="w-full justify-between bg-gray-100/5 text-foreground hover:bg-gray-100/10"
+              className="w-full justify-between text-foreground"
             >
               <div className="flex items-center gap-2">
-                {valueVisible ? (
-                  <X className="h-4 w-4 shrink-0 opacity-50" />
-                ) : null}
+                {!valueVisible && <X className="size-4 shrink-0 opacity-50" />}
                 {valueVisible
                   ? frameworks.find(
                       (framework) => framework.value === valueVisible
                     )?.label
                   : 'No Framework'}
               </div>
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[300px] bg-background p-0">
@@ -167,11 +143,13 @@ export default function Component() {
                 placeholder="Search..."
                 className="text-foreground"
               />
-              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandEmpty>
+                <X className="ml-2 size-4 opacity-50" /> No framework found.
+              </CommandEmpty>
               <CommandList>
                 <CommandGroup>
                   <CommandItem className="flex items-center justify-between text-muted-foreground">
-                    <span>This is info text</span>
+                    <span className="text-xs">This is info text</span>
                   </CommandItem>
                   {frameworks.map((framework) => (
                     <CommandItem
@@ -190,7 +168,7 @@ export default function Component() {
                       </div>
                       <div className="flex items-center gap-2">
                         {valueVisible === framework.value && (
-                          <Check className="h-4 w-4" />
+                          <Check className="size-4" />
                         )}
                         <span className="text-sm text-muted-foreground">
                           {framework.shortcut}
