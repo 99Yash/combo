@@ -1,115 +1,209 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Check, ChevronsUpDown, Hash, X } from 'lucide-react';
+import * as React from 'react';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const frameworks = [
+  {
+    value: 'next.js',
+    label: 'Next.js',
+    shortcut: '1',
+  },
+  {
+    value: 'sveltekit',
+    label: 'SvelteKit is longer than usual',
+    shortcut: '2',
+  },
+  {
+    value: 'nuxt.js',
+    label: 'Nuxt.js',
+    shortcut: '3',
+  },
+  {
+    value: 'remix',
+    label: 'Remix',
+    shortcut: '4',
+  },
+  {
+    value: 'astro',
+    label: 'Astro',
+    shortcut: '5',
+  },
+  {
+    value: 'gatsby',
+    label: 'Gatsby',
+    shortcut: '6',
+  },
+  {
+    value: 'react',
+    label: 'React',
+    group: 'Non-React',
+    shortcut: '7',
+  },
+];
 
-export default function Home() {
+export default function Component() {
+  const [openInvisible, setOpenInvisible] = React.useState(false);
+  const [valueInvisible, setValueInvisible] = React.useState('');
+  const [openVisible, setOpenVisible] = React.useState(false);
+  const [valueVisible, setValueVisible] = React.useState('');
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg bg-background p-4">
+      {/* Invisible Placeholder Combobox */}
+      <div className="flex flex-col gap-2">
+        <span className="text-sm text-foreground">
+          Combobox (Invisible Placeholder)
+        </span>
+        <span className="text-xs text-muted-foreground">
+          hover to see shortcut
+        </span>
+        <Popover open={openInvisible} onOpenChange={setOpenInvisible}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={openInvisible}
+              className="w-full justify-between bg-gray-100/5 text-foreground hover:bg-gray-100/10"
+            >
+              <div className="flex items-center gap-2">
+                <Hash className="h-4 w-4 shrink-0 opacity-50" />
+                {valueInvisible
+                  ? frameworks.find(
+                      (framework) => framework.value === valueInvisible
+                    )?.label
+                  : 'Select framework...'}
+              </div>
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] bg-background p-0">
+            <Command className="bg-background">
+              <CommandInput
+                placeholder="Search..."
+                className="text-foreground"
+              />
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandList>
+                <CommandGroup>
+                  {frameworks.map((framework) => (
+                    <CommandItem
+                      key={framework.value}
+                      value={framework.value}
+                      onSelect={(currentValue) => {
+                        setValueInvisible(
+                          currentValue === valueInvisible ? '' : currentValue
+                        );
+                        setOpenInvisible(false);
+                      }}
+                      className="flex items-center justify-between text-foreground"
+                    >
+                      <div className="flex items-center gap-2">
+                        {framework.group && (
+                          <span className="text-sm text-muted-foreground">
+                            {framework.group}
+                          </span>
+                        )}
+                        {framework.label}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {valueInvisible === framework.value && (
+                          <Check className="h-4 w-4" />
+                        )}
+                        <span className="text-sm text-muted-foreground">
+                          {framework.shortcut}
+                        </span>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {/* Visible Placeholder Combobox */}
+      <div className="flex flex-col gap-2">
+        <span className="text-sm text-foreground">
+          Combobox (Visible Placeholder)
+        </span>
+        <Popover open={openVisible} onOpenChange={setOpenVisible}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={openVisible}
+              className="w-full justify-between bg-gray-100/5 text-foreground hover:bg-gray-100/10"
+            >
+              <div className="flex items-center gap-2">
+                {valueVisible ? (
+                  <X className="h-4 w-4 shrink-0 opacity-50" />
+                ) : null}
+                {valueVisible
+                  ? frameworks.find(
+                      (framework) => framework.value === valueVisible
+                    )?.label
+                  : 'No Framework'}
+              </div>
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] bg-background p-0">
+            <Command className="bg-background">
+              <CommandInput
+                placeholder="Search..."
+                className="text-foreground"
+              />
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandList>
+                <CommandGroup>
+                  <CommandItem className="flex items-center justify-between text-muted-foreground">
+                    <span>This is info text</span>
+                  </CommandItem>
+                  {frameworks.map((framework) => (
+                    <CommandItem
+                      key={framework.value}
+                      value={framework.value}
+                      onSelect={(currentValue) => {
+                        setValueVisible(
+                          currentValue === valueVisible ? '' : currentValue
+                        );
+                        setOpenVisible(false);
+                      }}
+                      className="flex items-center justify-between text-foreground"
+                    >
+                      <div className="flex items-center gap-2">
+                        {framework.label}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {valueVisible === framework.value && (
+                          <Check className="h-4 w-4" />
+                        )}
+                        <span className="text-sm text-muted-foreground">
+                          {framework.shortcut}
+                        </span>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 }
