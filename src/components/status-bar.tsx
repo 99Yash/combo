@@ -27,6 +27,24 @@ export function StatusBar() {
   const [open, setOpen] = React.useState(false);
   const [val, setVal] = React.useState('');
 
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handleNumberKeyPress = (e: KeyboardEvent) => {
+      if (e.key >= '1' && e.key <= '9') {
+        e.preventDefault();
+        const index = parseInt(e.key, 10) - 1;
+        if (index < priorities.length) {
+          setVal(priorities[index].value);
+          setOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleNumberKeyPress);
+    return () => document.removeEventListener('keydown', handleNumberKeyPress);
+  }, [open]);
+
   return (
     <>
       <h3 className="font-medium tracking-tight">
@@ -34,7 +52,7 @@ export function StatusBar() {
       </h3>
 
       <div className="flex items-center gap-6 w-full">
-        <h4 className="text-xxs text-muted-foreground uppercase">hello-7</h4>
+        <h4 className="text-xxs text-gray-700 uppercase">hello-7</h4>
         <Popover open={open} onOpenChange={setOpen}>
           <TooltipProvider delayDuration={100}>
             <Tooltip>
@@ -125,7 +143,7 @@ export function StatusBar() {
             </Command>
           </PopoverContent>
         </Popover>
-        <ExternalLink className="size-4 text-muted-foreground" />
+        <ExternalLink className="size-4 text-gray-700" />
         <p className="opacity-50 max-w-3xl">
           GT Walshiem is a typeface designed by Adrian Frutiger for the graphic
           design studio of Adrian Frutiger. Lorem ipsum, dolor sit amet

@@ -84,7 +84,7 @@ export function VisibleCB() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] backdrop-blur-sm outline-none p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
             <CommandInput placeholder="Search..." className="text-gray-1000" />
@@ -122,7 +122,7 @@ export function VisibleCB() {
                         <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i < 9 && (
-                        <span className="text-sm text-gray-1000/40">
+                        <span className="text-xs text-gray-1000/40">
                           {i + 1}
                         </span>
                       )}
@@ -150,7 +150,7 @@ export function VisibleCB() {
                         <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i + placeholders.length < 9 && (
-                        <span className="text-sm text-gray-1000/40">
+                        <span className="text-xs text-gray-1000/40">
                           {i + placeholders.length + 1}
                         </span>
                       )}
@@ -178,7 +178,7 @@ export function VisibleCB() {
                         <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i + frameworks.length + placeholders.length < 9 && (
-                        <span className="text-sm text-gray-1000/40">
+                        <span className="text-xs text-gray-1000/40">
                           {i + frameworks.length + placeholders.length + 1}
                         </span>
                       )}
