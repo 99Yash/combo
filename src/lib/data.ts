@@ -1,3 +1,5 @@
+import { Activity, Hash } from 'lucide-react';
+
 export const frameworks = [
   {
     value: 'next.js',
@@ -26,5 +28,18 @@ export const frameworks = [
   {
     value: 'react',
     label: 'React',
+  },
+];
+
+export const placeholders = [
+  {
+    value: 'Select placeholder...',
+    label: 'Select placeholder...',
+    icon: Hash,
+  },
+  {
+    value: 'Next.js',
+    label: 'Next.js',
+    icon: Activity,
   },
 ];

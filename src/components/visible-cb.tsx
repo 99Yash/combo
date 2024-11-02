@@ -20,7 +20,7 @@ import { GTWalsheim } from '../styles/fonts';
 
 export function VisibleCb() {
   const [openVisible, setOpenVisible] = React.useState(false);
-  const [valueVisible, setValueVisible] = React.useState('');
+  const [val, setVal] = React.useState('');
 
   return (
     <div className="flex flex-col gap-2">
@@ -33,14 +33,12 @@ export function VisibleCb() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="w-full justify-between text-foreground"
+            className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
           >
             <div className="flex items-center gap-2">
-              {!valueVisible && <X className="size-4 shrink-0 opacity-50" />}
-              {valueVisible
-                ? frameworks.find(
-                    (framework) => framework.value === valueVisible
-                  )?.label
+              {!val && <X className="size-4 shrink-0 opacity-50" />}
+              {val
+                ? frameworks.find((framework) => framework.value === val)?.label
                 : 'No Framework'}
             </div>
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -52,6 +50,7 @@ export function VisibleCb() {
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />
             <CommandEmpty>No framework found.</CommandEmpty>
+
             <CommandList>
               <CommandGroup title="React" className="m-0.5">
                 <span className="text-xs ml-2.5 flex items-center gap-1.5 py-2 px-0.5 text-foreground/60">
@@ -65,9 +64,7 @@ export function VisibleCb() {
                     key={framework.value}
                     value={framework.value}
                     onSelect={(currentValue) => {
-                      setValueVisible(
-                        currentValue === valueVisible ? '' : currentValue
-                      );
+                      setVal(currentValue === val ? '' : currentValue);
                       setOpenVisible(false);
                     }}
                     className="flex items-center justify-between text-foreground"
@@ -76,7 +73,7 @@ export function VisibleCb() {
                       {framework.label}
                     </div>
                     <div className="flex items-center gap-2">
-                      {valueVisible === framework.value && (
+                      {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
                       {i < 9 && (

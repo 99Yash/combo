@@ -18,14 +18,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { frameworks } from '@/lib/data';
+import { frameworks, placeholders } from '@/lib/data';
 import { Check, ChevronDown, Hash } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
 
 export function InvisibleCB() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
-  const [valueInvisible, setValueInvisible] = React.useState('');
+  const [val, setVal] = React.useState('');
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -52,13 +52,13 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="w-full justify-between"
+                  className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center gap-2">
                     <Hash className="size-4 shrink-0 opacity-50" />
-                    {valueInvisible
-                      ? frameworks.find(
-                          (framework) => framework.value === valueInvisible
+                    {val
+                      ? [...frameworks, ...placeholders].find(
+                          (framework) => framework.value === val
                         )?.label
                       : 'Select framework...'}
                   </div>
@@ -67,30 +67,57 @@ export function InvisibleCB() {
               </PopoverTrigger>
             </TooltipTrigger>
             <TooltipContent
+              sideOffset={14}
               className={`${GTWalsheim.className} bg-muted text-foreground`}
             >
-              Select framework ⌘ E
+              Select framework &nbsp; &nbsp; ⌘ &nbsp; E
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <PopoverContent
           className={`w-[--radix-popover-trigger-width] p-0 ${GTWalsheim.className}`}
         >
-          {' '}
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />
             <CommandEmpty>No framework found.</CommandEmpty>
 
-            <CommandList>
+            <CommandList className="scrollbar-hide">
+              <CommandGroup>
+                {placeholders.map((placeholder, i) => (
+                  <CommandItem
+                    key={placeholder.value}
+                    value={placeholder.value}
+                    onSelect={(currentValue) => {
+                      setVal(currentValue === val ? '' : currentValue);
+                      setOpenInvisible(false);
+                    }}
+                    className="flex items-center justify-between text-foreground m-1"
+                  >
+                    <div className="flex items-center gap-2">
+                      {placeholder.icon && (
+                        <placeholder.icon className="size-4 shrink-0" />
+                      )}
+                      {placeholder.label}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {val === placeholder.value && (
+                        <Check className="size-4 opacity-50" />
+                      )}
+                      {i < 9 && (
+                        <span className="text-sm opacity-50">{i + 1}</span>
+                      )}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
               <CommandGroup heading="React">
                 {frameworks.map((framework, i) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
                     onSelect={(currentValue) => {
-                      setValueInvisible(
-                        currentValue === valueInvisible ? '' : currentValue
-                      );
+                      setVal(currentValue === val ? '' : currentValue);
                       setOpenInvisible(false);
                     }}
                     className="flex items-center justify-between text-foreground m-1"
@@ -99,12 +126,12 @@ export function InvisibleCB() {
                       {framework.label}
                     </div>
                     <div className="flex items-center gap-2">
-                      {valueInvisible === framework.value && (
-                        <Check className="size-4" />
+                      {val === framework.value && (
+                        <Check className="size-4 opacity-50" />
                       )}
-                      {i < 9 && (
-                        <span className="text-sm text-muted-foreground">
-                          {i + 1}
+                      {i + placeholders.length < 9 && (
+                        <span className="text-sm opacity-50">
+                          {i + placeholders.length + 1}
                         </span>
                       )}
                     </div>
