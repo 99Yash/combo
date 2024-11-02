@@ -74,7 +74,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-1 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
@@ -99,7 +99,7 @@ export function InvisibleCB() {
             </TooltipTrigger>
             <TooltipContent
               sideOffset={14}
-              className={`${GTWalsheim.className} bg-muted text-foreground`}
+              className={`${GTWalsheim.className} bg-muted text-gray-1000`}
             >
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
               <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 rotate-180 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-muted"></div>
@@ -110,8 +110,11 @@ export function InvisibleCB() {
           className={`w-[--radix-popover-trigger-width] backdrop-blur-sm bg-gray-25/75 outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
-            <CommandInput placeholder="Search..." className="text-foreground" />
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandInput placeholder="Search..." className="text-gray-1000" />
+
+            <CommandEmpty className="text-gray-900 self-center text-sm py-6">
+              No framework found.
+            </CommandEmpty>
 
             <CommandList className="scrollbar-hide">
               <CommandGroup>
@@ -123,7 +126,7 @@ export function InvisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenInvisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground m-1"
+                    className="flex items-center justify-between text-gray-1000 m-1"
                   >
                     <div className="flex items-center gap-2">
                       {placeholder.icon && (
@@ -152,7 +155,7 @@ export function InvisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenInvisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground m-1"
+                    className="flex items-center justify-between text-gray-1000 m-1"
                   >
                     <div className="flex items-center gap-2">
                       {framework.label}
@@ -180,17 +183,17 @@ export function InvisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenInvisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground m-1"
+                    className="flex items-center justify-between text-gray-1000 m-1"
                   >
                     <div className="flex items-center gap-2">
                       {framework.label}
                     </div>
                     <div className="flex items-center gap-2">
                       {val === framework.value && (
-                        <Check className="size-4 text-foreground/40" />
+                        <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i + frameworks.length + placeholders.length < 9 && (
-                        <span className="text-sm text-foreground/40">
+                        <span className="text-sm text-gray-1000/40">
                           {i + placeholders.length + frameworks.length + 1}
                         </span>
                       )}

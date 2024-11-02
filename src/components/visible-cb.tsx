@@ -46,7 +46,7 @@ export function VisibleCB() {
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm text-foreground">
+      <span className="text-sm text-gray-1000">
         Combobox (Visible Placeholder)
       </span>
       <Popover open={openVisible} onOpenChange={setOpenVisible}>
@@ -55,7 +55,7 @@ export function VisibleCB() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="max-w-[300px] flex items-center justify-between focus:outline-violet-600 default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+            className="max-w-[300px] flex items-center justify-between focus:outline-violet-600 default:ring hover:outline hover:outline-1 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
@@ -84,18 +84,20 @@ export function VisibleCB() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] backdrop-blur-sm bg-gray-25/75 outline-none p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] backdrop-blur-sm outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
-            <CommandInput placeholder="Search..." className="text-foreground" />
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandInput placeholder="Search..." className="text-gray-1000" />
+            <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-gray-700">
+              <Info className="size-4" />
+              This is info text
+            </span>
+
+            <CommandEmpty className="text-gray-900 self-center text-sm py-6">
+              No framework found.
+            </CommandEmpty>
 
             <CommandList className="scrollbar-hide">
-              <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-foreground/70">
-                <Info className="size-4" />
-                This is info text
-              </span>
-
               <CommandSeparator className="my-2" />
 
               <CommandGroup className="m-0.5">
@@ -107,7 +109,7 @@ export function VisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenVisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground"
+                    className="flex items-center justify-between text-gray-1000"
                   >
                     <div className="flex items-center gap-2">
                       {framework.icon && (
@@ -117,10 +119,10 @@ export function VisibleCB() {
                     </div>
                     <div className="flex items-center gap-2">
                       {val === framework.value && (
-                        <Check className="size-4 text-foreground/40" />
+                        <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i < 9 && (
-                        <span className="text-sm text-foreground/40">
+                        <span className="text-sm text-gray-1000/40">
                           {i + 1}
                         </span>
                       )}
@@ -138,17 +140,17 @@ export function VisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenVisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground"
+                    className="flex items-center justify-between text-gray-1000"
                   >
                     <div className="flex items-center gap-2">
                       {framework.label}
                     </div>
                     <div className="flex items-center gap-2">
                       {val === framework.value && (
-                        <Check className="size-4 text-foreground/40" />
+                        <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i + placeholders.length < 9 && (
-                        <span className="text-sm text-foreground/40">
+                        <span className="text-sm text-gray-1000/40">
                           {i + placeholders.length + 1}
                         </span>
                       )}
@@ -166,17 +168,17 @@ export function VisibleCB() {
                       setVal(currentValue === val ? '' : currentValue);
                       setOpenVisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground"
+                    className="flex items-center justify-between text-gray-1000"
                   >
                     <div className="flex items-center gap-2">
                       {framework.label}
                     </div>
                     <div className="flex items-center gap-2">
                       {val === framework.value && (
-                        <Check className="size-4 text-foreground/40" />
+                        <Check className="size-4 text-gray-1000/40" />
                       )}
                       {i + frameworks.length + placeholders.length < 9 && (
-                        <span className="text-sm text-foreground/40">
+                        <span className="text-sm text-gray-1000/40">
                           {i + frameworks.length + placeholders.length + 1}
                         </span>
                       )}

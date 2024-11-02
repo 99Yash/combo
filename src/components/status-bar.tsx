@@ -66,7 +66,7 @@ export function StatusBar() {
               </TooltipTrigger>
 
               <TooltipContent
-                className={`${GTWalsheim.className} bg-muted text-foreground`}
+                className={`${GTWalsheim.className} bg-muted text-gray-1000`}
               >
                 {val
                   ? `Priority: ${
@@ -80,7 +80,7 @@ export function StatusBar() {
             <Command loop>
               <CommandInput
                 placeholder="Search..."
-                className="text-foreground caret-violet-500"
+                className="text-gray-1000 caret-violet-500"
               />
               <CommandEmpty>Priority not found.</CommandEmpty>
               <CommandList className="scrollbar-hide">
@@ -98,7 +98,7 @@ export function StatusBar() {
                             : setVal(priorities[0].value);
                           setOpen(false);
                         }}
-                        className="flex items-center justify-between text-foreground"
+                        className="flex items-center justify-between text-gray-1000"
                       >
                         <div className="flex items-center gap-3.5">
                           {icon &&
@@ -109,10 +109,10 @@ export function StatusBar() {
                         </div>
                         <div className="flex items-center gap-2">
                           {val === p.value && (
-                            <Check className="size-4 text-foreground/40" />
+                            <Check className="size-4 text-gray-1000/40" />
                           )}
                           {i < 9 && (
-                            <span className="text-sm text-foreground/40">
+                            <span className="text-sm text-gray-1000/40">
                               {i + 1}
                             </span>
                           )}
