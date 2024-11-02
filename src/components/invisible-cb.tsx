@@ -91,7 +91,7 @@ export function InvisibleCB() {
                       );
                       setOpenInvisible(false);
                     }}
-                    className="flex items-center justify-between text-foreground"
+                    className="flex items-center justify-between text-foreground m-1"
                   >
                     <div className="flex items-center gap-2">
                       {framework.label}
