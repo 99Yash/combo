@@ -23,7 +23,7 @@ export function VisibleCB() {
   const [val, setVal] = React.useState('');
 
   const arrays = React.useMemo(() => {
-    return [...frameworks, ...placeholders, ...nonReactFrameworks];
+    return [...frameworks, ...nonReactFrameworks];
   }, []);
 
   React.useEffect(() => {
