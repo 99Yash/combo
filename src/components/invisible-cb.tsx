@@ -52,7 +52,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="w-full justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:ring-1 focus:ring-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
+                  className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:ring-1 focus:ring-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {

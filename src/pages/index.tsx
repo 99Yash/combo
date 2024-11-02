@@ -11,19 +11,14 @@ export default function Component() {
         name="description"
         content={'Check your inbox to confirm your email'}
       />
-      <div
-        className={`flex w-[300px] flex-col gap-8 p-4 ${GTWalsheim.className}`}
-      >
+      <div className={`flex flex-col gap-8 p-4 ${GTWalsheim.className}`}>
         {/* Invisible Placeholder Combobox */}
         <InvisibleCB />
 
         {/* Visible Placeholder Combobox */}
         <VisibleCB />
 
-        <div className="flex items-center gap-3">
-          <h4 className="text-xxs text-muted-foreground uppercase">hello-7</h4>
-          <StatusBar />
-        </div>
+        <StatusBar />
       </div>
     </>
   );
