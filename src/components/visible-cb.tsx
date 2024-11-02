@@ -37,19 +37,27 @@ export function VisibleCB() {
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
-                const icon = placeholders.find(
+                const selectedIcon = placeholders.find(
                   (placeholder) => placeholder.value === val
                 )?.icon;
-                return icon ? (
-                  React.createElement(icon, {
+
+                if (selectedIcon) {
+                  return React.createElement(selectedIcon, {
                     className: 'size-4 shrink-0 opacity-50',
-                  })
-                ) : val ? null : (
-                  <X className="size-4 shrink-0 opacity-50" />
-                );
+                  });
+                }
+
+                if (!val) {
+                  return <X className="size-4 shrink-0 opacity-50" />;
+                }
+
+                return null;
               })()}
+
               {val
-                ? frameworks.find((framework) => framework.value === val)?.label
+                ? [...placeholders, ...frameworks].find(
+                    (framework) => framework.value === val
+                  )?.label
                 : 'No Framework'}
             </div>
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -70,7 +78,7 @@ export function VisibleCB() {
                 </span>
 
                 <CommandSeparator className="my-1" />
-                {[...frameworks, ...placeholders].map((framework, i) => (
+                {[...placeholders, ...frameworks].map((framework, i) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
