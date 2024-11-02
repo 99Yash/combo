@@ -23,7 +23,7 @@ export function VisibleCB() {
   const [val, setVal] = React.useState('');
 
   const arrays = React.useMemo(() => {
-    return [...frameworks, ...nonReactFrameworks];
+    return [...placeholders, ...frameworks, ...nonReactFrameworks];
   }, []);
 
   React.useEffect(() => {
@@ -55,7 +55,7 @@ export function VisibleCB() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="max-w-[300px] flex items-center justify-between default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+            className="max-w-[300px] flex items-center justify-between focus:outline-violet-600 default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
@@ -98,6 +98,37 @@ export function VisibleCB() {
 
               <CommandSeparator className="my-2" />
 
+              <CommandGroup className="m-0.5">
+                {placeholders.map((framework, i) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={(currentValue) => {
+                      setVal(currentValue === val ? '' : currentValue);
+                      setOpenVisible(false);
+                    }}
+                    className="flex items-center justify-between text-foreground"
+                  >
+                    <div className="flex items-center gap-2">
+                      {framework.icon && (
+                        <framework.icon className="size-4 shrink-0" />
+                      )}
+                      {framework.label}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {val === framework.value && (
+                        <Check className="size-4 text-foreground/40" />
+                      )}
+                      {i < 9 && (
+                        <span className="text-sm text-foreground/40">
+                          {i + 1}
+                        </span>
+                      )}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
               <CommandGroup heading="React" className="m-0.5">
                 {frameworks.map((framework, i) => (
                   <CommandItem
@@ -116,9 +147,9 @@ export function VisibleCB() {
                       {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
-                      {i < 9 && (
+                      {i + placeholders.length < 9 && (
                         <span className="text-sm text-foreground/40">
-                          {i + 1}
+                          {i + placeholders.length + 1}
                         </span>
                       )}
                     </div>
