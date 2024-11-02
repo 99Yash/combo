@@ -6,6 +6,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from '@/components/ui/command';
 import {
   Popover,
@@ -19,9 +20,9 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { frameworks } from '@/lib/data';
-import { Check, ChevronDown, Hash, X } from 'lucide-react';
+import { Check, ChevronDown, Hash, Info, X } from 'lucide-react';
 import * as React from 'react';
-import { GTWalsheim } from './fonts';
+import { GTWalsheim } from '../styles/fonts';
 
 export default function Component() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
@@ -30,10 +31,21 @@ export default function Component() {
   const [openVisible, setOpenVisible] = React.useState(false);
   const [valueVisible, setValueVisible] = React.useState('');
 
+  React.useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'e' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpenInvisible((open) => !open);
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, []);
+
   return (
     <div
-      className={`
-      dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg p-4 ${GTWalsheim.className}`}
+      className={`flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg p-4 ${GTWalsheim.className}`}
     >
       {/* Invisible Placeholder Combobox */}
       <div className="flex flex-col gap-2">
@@ -51,25 +63,24 @@ export default function Component() {
                     className="w-full justify-between"
                   >
                     <div className="flex items-center gap-2">
-                      <Hash className="h-4 w-4 shrink-0 opacity-50" />
+                      <Hash className="size-4 shrink-0 opacity-50" />
                       {valueInvisible
                         ? frameworks.find(
                             (framework) => framework.value === valueInvisible
                           )?.label
                         : 'Select framework...'}
                     </div>
-                    <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
               </TooltipTrigger>
-              <TooltipContent
-                className={`${GTWalsheim.className} bg-slate-800`}
-              >
+              <TooltipContent className={`${GTWalsheim.className}`}>
                 <p>Select framework ⌘ E</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <PopoverContent className="w-[300px] box-border">
+          <PopoverContent className={`w-[300px] p-0 ${GTWalsheim.className}`}>
+            {' '}
             <Command loop>
               <CommandInput
                 placeholder="Search..."
@@ -77,9 +88,9 @@ export default function Component() {
               />
               <CommandEmpty>No framework found.</CommandEmpty>
 
-              <CommandList title="Select framework">
-                <CommandGroup title="Frameworks">
-                  {frameworks.map((framework) => (
+              <CommandList>
+                <CommandGroup heading="React">
+                  {frameworks.map((framework, i) => (
                     <CommandItem
                       key={framework.value}
                       value={framework.value}
@@ -96,11 +107,13 @@ export default function Component() {
                       </div>
                       <div className="flex items-center gap-2">
                         {valueInvisible === framework.value && (
-                          <Check className="h-4 w-4" />
+                          <Check className="size-4" />
                         )}
-                        <span className="text-sm text-muted-foreground">
-                          {framework.shortcut}
-                        </span>
+                        {i < 9 && (
+                          <span className="text-sm text-muted-foreground">
+                            {i + 1}
+                          </span>
+                        )}
                       </div>
                     </CommandItem>
                   ))}
@@ -135,21 +148,22 @@ export default function Component() {
               <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] bg-background p-0">
-            <Command className="bg-background">
+          <PopoverContent className={`w-[300px] p-0 ${GTWalsheim.className}`}>
+            <Command loop>
               <CommandInput
                 placeholder="Search..."
                 className="text-foreground"
               />
-              <CommandEmpty>
-                <X className="ml-2 size-4 opacity-50" /> No framework found.
-              </CommandEmpty>
+              <CommandEmpty>No framework found.</CommandEmpty>
               <CommandList>
-                <CommandGroup>
-                  <CommandItem className="flex items-center justify-between text-muted-foreground">
-                    <span className="text-xs">This is info text</span>
-                  </CommandItem>
-                  {frameworks.map((framework) => (
+                <CommandGroup title="React">
+                  <span className="text-xs ml-2.5 flex items-center gap-1.5 py-2 px-0.5 text-foreground/60">
+                    <Info className="size-4" />
+                    This is info text
+                  </span>
+
+                  <CommandSeparator />
+                  {frameworks.map((framework, i) => (
                     <CommandItem
                       key={framework.value}
                       value={framework.value}
@@ -168,9 +182,11 @@ export default function Component() {
                         {valueVisible === framework.value && (
                           <Check className="size-4" />
                         )}
-                        <span className="text-sm text-muted-foreground">
-                          {framework.shortcut}
-                        </span>
+                        {i < 9 && (
+                          <span className="text-sm text-muted-foreground">
+                            {i + 1}
+                          </span>
+                        )}
                       </div>
                     </CommandItem>
                   ))}
