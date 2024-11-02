@@ -32,7 +32,6 @@ export const frameworks = [
   {
     value: 'react',
     label: 'React',
-    group: 'Non-React',
     shortcut: '7',
   },
 ];

@@ -19,27 +19,28 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { frameworks } from '@/lib/data';
-import { Check, ChevronDown, ChevronsUpDown, Hash, X } from 'lucide-react';
+import { Check, ChevronDown, Hash, X } from 'lucide-react';
 import * as React from 'react';
+import { GTWalsheim } from './fonts';
 
 export default function Component() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
   const [valueInvisible, setValueInvisible] = React.useState('');
+
   const [openVisible, setOpenVisible] = React.useState(false);
   const [valueVisible, setValueVisible] = React.useState('');
 
   return (
-    <div className="dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg p-4">
+    <div
+      className={`
+      dark flex min-h-[350px] w-[300px] flex-col gap-8 rounded-lg p-4 ${GTWalsheim.className}`}
+    >
       {/* Invisible Placeholder Combobox */}
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-foreground">
-          Combobox (Invisible Placeholder)
-        </span>
-        <span className="text-xs text-muted-foreground">
-          hover to see shortcut
-        </span>
+        <span className="text-sm">Combobox (Invisible Placeholder)</span>
+        <span className="text-xs">hover to see shortcut</span>
         <Popover open={openInvisible} onOpenChange={setOpenInvisible}>
-          <TooltipProvider>
+          <TooltipProvider delayDuration={100}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <PopoverTrigger asChild>
@@ -47,7 +48,7 @@ export default function Component() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={openInvisible}
-                    className="w-full justify-between text-foreground"
+                    className="w-full justify-between"
                   >
                     <div className="flex items-center gap-2">
                       <Hash className="h-4 w-4 shrink-0 opacity-50" />
@@ -57,25 +58,27 @@ export default function Component() {
                           )?.label
                         : 'Select framework...'}
                     </div>
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
               </TooltipTrigger>
-              <TooltipContent>
+              <TooltipContent
+                className={`${GTWalsheim.className} bg-slate-800`}
+              >
                 <p>Select framework ⌘ E</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <PopoverContent className="w-[300px] bg-gray-100 p-0">
-            <Command className="bg-gray-100">
+          <PopoverContent className="w-[300px] box-border">
+            <Command loop>
               <CommandInput
                 placeholder="Search..."
                 className="text-foreground"
               />
               <CommandEmpty>No framework found.</CommandEmpty>
 
-              <CommandList>
-                <CommandGroup>
+              <CommandList title="Select framework">
+                <CommandGroup title="Frameworks">
                   {frameworks.map((framework) => (
                     <CommandItem
                       key={framework.value}
@@ -89,11 +92,6 @@ export default function Component() {
                       className="flex items-center justify-between text-foreground"
                     >
                       <div className="flex items-center gap-2">
-                        {framework.group && (
-                          <span className="text-sm text-muted-foreground">
-                            {framework.group}
-                          </span>
-                        )}
                         {framework.label}
                       </div>
                       <div className="flex items-center gap-2">
