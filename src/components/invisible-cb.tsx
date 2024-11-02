@@ -28,7 +28,7 @@ export function InvisibleCB() {
   const [val, setVal] = React.useState('');
 
   const arrays = React.useMemo(() => {
-    return [...frameworks, ...placeholders, ...nonReactFrameworks];
+    return [...placeholders, ...frameworks, ...nonReactFrameworks];
   }, []);
 
   React.useEffect(() => {
@@ -43,6 +43,24 @@ export function InvisibleCB() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  React.useEffect(() => {
+    if (!openInvisible) return;
+
+    const handleNumberKeyPress = (e: KeyboardEvent) => {
+      if (e.key >= '1' && e.key <= '9') {
+        e.preventDefault();
+        const index = parseInt(e.key, 10) - 1;
+        if (index < arrays.length) {
+          setVal(arrays[index].value);
+          setOpenInvisible(false);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleNumberKeyPress);
+    return () => document.removeEventListener('keydown', handleNumberKeyPress);
+  }, [openInvisible, arrays]);
+
   return (
     <div className="flex flex-col gap-2">
       <span className="text-sm">Combobox (Invisible Placeholder)</span>
@@ -56,7 +74,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="max-w-[300px] justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
@@ -65,10 +83,10 @@ export function InvisibleCB() {
                       )?.icon;
                       return icon ? (
                         React.createElement(icon, {
-                          className: 'size-4 shrink-0 opacity-50',
+                          className: 'size-4 shrink-0',
                         })
                       ) : val ? null : (
-                        <Hash className="size-4 shrink-0 opacity-50" />
+                        <Hash className="size-4 shrink-0" />
                       );
                     })()}
                     {val
@@ -89,7 +107,7 @@ export function InvisibleCB() {
           </Tooltip>
         </TooltipProvider>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] p-0 max-h-[300px] ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] p-0 max-h-[300px] backdrop-blur-md ${GTWalsheim.className}`}
         >
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />

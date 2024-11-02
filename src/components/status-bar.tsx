@@ -54,10 +54,10 @@ export function StatusBar() {
                         )?.icon;
                         return icon ? (
                           React.createElement(icon, {
-                            className: 'size-4 shrink-0 opacity-50',
+                            className: 'size-5 shrink-0 opacity-50',
                           })
                         ) : (
-                          <MoreHorizontal className="size-4 shrink-0 opacity-50" />
+                          <MoreHorizontal className="size-5 shrink-0 opacity-50" />
                         );
                       })()}
                     </div>

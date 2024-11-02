@@ -26,6 +26,24 @@ export function VisibleCB() {
     return [...frameworks, ...placeholders, ...nonReactFrameworks];
   }, []);
 
+  React.useEffect(() => {
+    if (!openVisible) return;
+
+    const handleNumberKeyPress = (e: KeyboardEvent) => {
+      if (e.key >= '1' && e.key <= '9') {
+        e.preventDefault();
+        const index = parseInt(e.key, 10) - 1;
+        if (index < arrays.length) {
+          setVal(arrays[index].value);
+          setOpenVisible(false);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleNumberKeyPress);
+    return () => document.removeEventListener('keydown', handleNumberKeyPress);
+  }, [openVisible, arrays]);
+
   return (
     <div className="flex flex-col gap-2">
       <span className="text-sm text-foreground">
@@ -47,12 +65,12 @@ export function VisibleCB() {
 
                 if (selectedIcon) {
                   return React.createElement(selectedIcon, {
-                    className: 'size-4 shrink-0 opacity-50',
+                    className: 'size-4 shrink-0',
                   });
                 }
 
                 if (!val) {
-                  return <X className="size-4 shrink-0 opacity-50" />;
+                  return <X className="size-4 shrink-0" />;
                 }
 
                 return null;
