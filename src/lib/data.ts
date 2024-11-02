@@ -59,6 +59,25 @@ export const placeholders = [
   },
 ] as const;
 
+export const nonReactFrameworks = [
+  {
+    value: 'php',
+    label: 'PHP',
+  },
+  {
+    value: 'python',
+    label: 'Python',
+  },
+  {
+    value: 'java',
+    label: 'Java',
+  },
+  {
+    value: 'c',
+    label: 'C',
+  },
+];
+
 export const priorities = [
   {
     value: 'none',

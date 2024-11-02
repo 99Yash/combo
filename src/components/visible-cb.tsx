@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { frameworks, placeholders } from '@/lib/data';
+import { frameworks, nonReactFrameworks, placeholders } from '@/lib/data';
 import { Check, ChevronDown, Info, X } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
@@ -21,6 +21,10 @@ import { GTWalsheim } from '../styles/fonts';
 export function VisibleCB() {
   const [openVisible, setOpenVisible] = React.useState(false);
   const [val, setVal] = React.useState('');
+
+  const arrays = React.useMemo(() => {
+    return [...frameworks, ...placeholders, ...nonReactFrameworks];
+  }, []);
 
   return (
     <div className="flex flex-col gap-2">
@@ -33,7 +37,7 @@ export function VisibleCB() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:outline-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
+            className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-purple-800 focus:outline-offset-1 focus:ring-1 focus:ring-purple-700 focus:ring-offset-2 focus-visible:ring-purple-800"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
@@ -55,9 +59,7 @@ export function VisibleCB() {
               })()}
 
               {val
-                ? [...placeholders, ...frameworks].find(
-                    (framework) => framework.value === val
-                  )?.label
+                ? arrays.find((item) => item.value === val)?.label
                 : 'No Framework'}
             </div>
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -78,7 +80,7 @@ export function VisibleCB() {
                 </span>
 
                 <CommandSeparator className="my-1" />
-                {[...placeholders, ...frameworks].map((framework, i) => (
+                {arrays.map((framework, i) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
@@ -95,7 +97,7 @@ export function VisibleCB() {
                       {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
-                      {i + placeholders.length < 9 && (
+                      {i < 9 && (
                         <span className="text-sm text-foreground/40">
                           {i + 1}
                         </span>

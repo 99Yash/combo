@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { frameworks, placeholders } from '@/lib/data';
+import { frameworks, nonReactFrameworks, placeholders } from '@/lib/data';
 import { Check, ChevronDown, Hash } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
@@ -26,6 +26,10 @@ import { GTWalsheim } from '../styles/fonts';
 export function InvisibleCB() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
   const [val, setVal] = React.useState('');
+
+  const arrays = React.useMemo(() => {
+    return [...frameworks, ...placeholders, ...nonReactFrameworks];
+  }, []);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -68,9 +72,7 @@ export function InvisibleCB() {
                       );
                     })()}
                     {val
-                      ? [...frameworks, ...placeholders].find(
-                          (framework) => framework.value === val
-                        )?.label
+                      ? arrays.find((item) => item.value === val)?.label
                       : 'Select framework...'}
                   </div>
                   <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -86,7 +88,7 @@ export function InvisibleCB() {
           </Tooltip>
         </TooltipProvider>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] p-0 max-h-[300px] ${GTWalsheim.className}`}
         >
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />
@@ -143,6 +145,38 @@ export function InvisibleCB() {
                       {i + placeholders.length < 9 && (
                         <span className="text-sm opacity-50">
                           {i + placeholders.length + 1}
+                        </span>
+                      )}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
+              <CommandGroup heading="Non-React">
+                {nonReactFrameworks.map((framework, i) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={(currentValue) => {
+                      setVal(currentValue === val ? '' : currentValue);
+                      setOpenInvisible(false);
+                    }}
+                    className="flex items-center justify-between text-foreground m-1"
+                  >
+                    <div className="flex items-center gap-2">
+                      {framework.label}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {val === framework.value && (
+                        <Check className="size-4 text-foreground/40" />
+                      )}
+                      {i + frameworks.length + nonReactFrameworks.length <
+                        9 && (
+                        <span className="text-sm text-foreground/40">
+                          {i +
+                            placeholders.length +
+                            nonReactFrameworks.length +
+                            1}
                         </span>
                       )}
                     </div>
