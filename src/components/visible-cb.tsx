@@ -66,21 +66,22 @@ export function VisibleCB() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] backdrop-blur-sm bg-gray-25/75 outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />
             <CommandEmpty>No framework found.</CommandEmpty>
 
             <CommandList className="scrollbar-hide">
-              <CommandGroup title="React" className="m-0.5">
-                <span className="text-xs ml-2.5 flex items-center gap-1.5 py-2 px-0.5 text-foreground/60">
-                  <Info className="size-4" />
-                  This is info text
-                </span>
+              <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-foreground/70">
+                <Info className="size-4" />
+                This is info text
+              </span>
 
-                <CommandSeparator className="my-1" />
-                {arrays.map((framework, i) => (
+              <CommandSeparator className="my-2" />
+
+              <CommandGroup heading="React" className="m-0.5">
+                {frameworks.map((framework, i) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
@@ -100,6 +101,34 @@ export function VisibleCB() {
                       {i < 9 && (
                         <span className="text-sm text-foreground/40">
                           {i + 1}
+                        </span>
+                      )}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
+              <CommandGroup heading="Non-React">
+                {nonReactFrameworks.map((framework, i) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={(currentValue) => {
+                      setVal(currentValue === val ? '' : currentValue);
+                      setOpenVisible(false);
+                    }}
+                    className="flex items-center justify-between text-foreground"
+                  >
+                    <div className="flex items-center gap-2">
+                      {framework.label}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {val === framework.value && (
+                        <Check className="size-4 text-foreground/40" />
+                      )}
+                      {i + frameworks.length < 9 && (
+                        <span className="text-sm text-foreground/40">
+                          {i + frameworks.length + 1}
                         </span>
                       )}
                     </div>

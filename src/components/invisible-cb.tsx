@@ -56,7 +56,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+                  className="max-w-[300px] justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
@@ -84,6 +84,7 @@ export function InvisibleCB() {
               className={`${GTWalsheim.className} bg-muted text-foreground`}
             >
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 rotate-180 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-muted"></div>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -172,10 +173,7 @@ export function InvisibleCB() {
                       )}
                       {i + frameworks.length + placeholders.length < 9 && (
                         <span className="text-sm text-foreground/40">
-                          {i +
-                            placeholders.length +
-                            nonReactFrameworks.length +
-                            1}
+                          {i + placeholders.length + frameworks.length + 1}
                         </span>
                       )}
                     </div>
