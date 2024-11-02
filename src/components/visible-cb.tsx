@@ -175,9 +175,9 @@ export function VisibleCB() {
                       {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
-                      {i + frameworks.length < 9 && (
+                      {i + frameworks.length + placeholders.length < 9 && (
                         <span className="text-sm text-foreground/40">
-                          {i + frameworks.length + 1}
+                          {i + frameworks.length + placeholders.length + 1}
                         </span>
                       )}
                     </div>
