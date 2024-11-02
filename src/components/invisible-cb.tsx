@@ -52,9 +52,9 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+                  className="w-full justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:ring-1 focus:ring-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
                       const icon = placeholders.find(
                         (placeholder) => placeholder.value === val

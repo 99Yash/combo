@@ -17,6 +17,9 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        xxs: ['0.625rem', { lineHeight: '1rem' }],
+      },
       colors: {
         border: 'rgb(var(--gray-200) / <alpha-value>)',
         input: 'rgb(var(--gray-200) / <alpha-value>)',

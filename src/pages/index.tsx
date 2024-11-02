@@ -1,5 +1,6 @@
 import { InvisibleCB } from '@/components/invisible-cb';
-import { VisibleCb } from '@/components/visible-cb';
+import { StatusBar } from '@/components/status-bar';
+import { VisibleCB } from '@/components/visible-cb';
 import { GTWalsheim } from '../styles/fonts';
 
 export default function Component() {
@@ -17,7 +18,12 @@ export default function Component() {
         <InvisibleCB />
 
         {/* Visible Placeholder Combobox */}
-        <VisibleCb />
+        <VisibleCB />
+
+        <div className="flex items-center gap-3">
+          <h4 className="text-xxs text-muted-foreground uppercase">hello-7</h4>
+          <StatusBar />
+        </div>
       </div>
     </>
   );

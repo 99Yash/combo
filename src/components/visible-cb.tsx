@@ -18,7 +18,7 @@ import { Check, ChevronDown, Info, X } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
 
-export function VisibleCb() {
+export function VisibleCB() {
   const [openVisible, setOpenVisible] = React.useState(false);
   const [val, setVal] = React.useState('');
 
@@ -33,9 +33,9 @@ export function VisibleCb() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:outline-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+            className="w-full justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:outline-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
                 const icon = placeholders.find(
                   (placeholder) => placeholder.value === val
@@ -70,7 +70,7 @@ export function VisibleCb() {
                 </span>
 
                 <CommandSeparator className="my-1" />
-                {frameworks.map((framework, i) => (
+                {[...frameworks, ...placeholders].map((framework, i) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
@@ -87,7 +87,7 @@ export function VisibleCb() {
                       {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
-                      {i < 9 && (
+                      {i + placeholders.length < 9 && (
                         <span className="text-sm text-foreground/40">
                           {i + 1}
                         </span>
