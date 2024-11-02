@@ -73,7 +73,9 @@ export function InvisibleCB() {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <PopoverContent className={`w-[300px] p-0 ${GTWalsheim.className}`}>
+        <PopoverContent
+          className={`w-[--radix-popover-trigger-width] p-0 ${GTWalsheim.className}`}
+        >
           {' '}
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />

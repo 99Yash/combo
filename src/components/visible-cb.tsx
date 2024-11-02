@@ -46,18 +46,20 @@ export function VisibleCb() {
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className={`w-[300px] p-0 ${GTWalsheim.className}`}>
+        <PopoverContent
+          className={`w-[--radix-popover-trigger-width] p-0 ${GTWalsheim.className}`}
+        >
           <Command loop>
             <CommandInput placeholder="Search..." className="text-foreground" />
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandList>
-              <CommandGroup title="React">
+              <CommandGroup title="React" className="m-0.5">
                 <span className="text-xs ml-2.5 flex items-center gap-1.5 py-2 px-0.5 text-foreground/60">
                   <Info className="size-4" />
                   This is info text
                 </span>
 
-                <CommandSeparator />
+                <CommandSeparator className="my-1" />
                 {frameworks.map((framework, i) => (
                   <CommandItem
                     key={framework.value}
@@ -75,10 +77,10 @@ export function VisibleCb() {
                     </div>
                     <div className="flex items-center gap-2">
                       {valueVisible === framework.value && (
-                        <Check className="size-4 text-muted-foreground" />
+                        <Check className="size-4 text-foreground/40" />
                       )}
                       {i < 9 && (
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-sm text-foreground/40">
                           {i + 1}
                         </span>
                       )}
