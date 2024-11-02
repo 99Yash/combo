@@ -55,7 +55,18 @@ export function InvisibleCB() {
                   className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center gap-2">
-                    <Hash className="size-4 shrink-0 opacity-50" />
+                    {(() => {
+                      const icon = placeholders.find(
+                        (placeholder) => placeholder.value === val
+                      )?.icon;
+                      return icon ? (
+                        React.createElement(icon, {
+                          className: 'size-4 shrink-0 opacity-50',
+                        })
+                      ) : val ? null : (
+                        <Hash className="size-4 shrink-0 opacity-50" />
+                      );
+                    })()}
                     {val
                       ? [...frameworks, ...placeholders].find(
                           (framework) => framework.value === val

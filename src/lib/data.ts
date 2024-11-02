@@ -10,6 +10,10 @@ export const frameworks = [
     label: 'SvelteKit',
   },
   {
+    value: 'sveltelong',
+    label: 'SvelteKit is longer than usual',
+  },
+  {
     value: 'nuxt.js',
     label: 'Nuxt.js',
   },

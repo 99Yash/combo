@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { frameworks } from '@/lib/data';
+import { frameworks, placeholders } from '@/lib/data';
 import { Check, ChevronDown, Info, X } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
@@ -33,10 +33,21 @@ export function VisibleCb() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+            className="w-full justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:outline-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
           >
             <div className="flex items-center gap-2">
-              {!val && <X className="size-4 shrink-0 opacity-50" />}
+              {(() => {
+                const icon = placeholders.find(
+                  (placeholder) => placeholder.value === val
+                )?.icon;
+                return icon ? (
+                  React.createElement(icon, {
+                    className: 'size-4 shrink-0 opacity-50',
+                  })
+                ) : val ? null : (
+                  <X className="size-4 shrink-0 opacity-50" />
+                );
+              })()}
               {val
                 ? frameworks.find((framework) => framework.value === val)?.label
                 : 'No Framework'}
@@ -51,7 +62,7 @@ export function VisibleCb() {
             <CommandInput placeholder="Search..." className="text-foreground" />
             <CommandEmpty>No framework found.</CommandEmpty>
 
-            <CommandList>
+            <CommandList className="scrollbar-hide">
               <CommandGroup title="React" className="m-0.5">
                 <span className="text-xs ml-2.5 flex items-center gap-1.5 py-2 px-0.5 text-foreground/60">
                   <Info className="size-4" />
