@@ -56,7 +56,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-purple-700 focus:ring-1 focus:ring-purple-700 focus:ring-offset-2 focus-visible:ring-purple-500"
+                  className="w-[300px] justify-between hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
@@ -170,8 +170,7 @@ export function InvisibleCB() {
                       {val === framework.value && (
                         <Check className="size-4 text-foreground/40" />
                       )}
-                      {i + frameworks.length + nonReactFrameworks.length <
-                        9 && (
+                      {i + frameworks.length + placeholders.length < 9 && (
                         <span className="text-sm text-foreground/40">
                           {i +
                             placeholders.length +

@@ -29,9 +29,11 @@ export function StatusBar() {
 
   return (
     <>
-      <h3 className="font-medium tracking-tight">Set Priority</h3>
+      <h3 className="font-medium tracking-tight">
+        Priority Selector + Tooltip
+      </h3>
 
-      <div className="flex items-center gap-3 w-full">
+      <div className="flex items-center gap-6 w-full">
         <h4 className="text-xxs text-muted-foreground uppercase">hello-7</h4>
         <Popover open={open} onOpenChange={setOpen}>
           <TooltipProvider delayDuration={100}>
@@ -124,9 +126,11 @@ export function StatusBar() {
           </PopoverContent>
         </Popover>
         <ExternalLink className="size-4 text-muted-foreground" />
-        <p className="opacity-50">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-          voluptatibus dignissimos velit.
+        <p className="opacity-50 max-w-3xl">
+          GT Walshiem is a typeface designed by Adrian Frutiger for the graphic
+          design studio of Adrian Frutiger. Lorem ipsum, dolor sit amet
+          consectetur adipisicing elit. Accusamus, sapiente blanditiis?
+          Perspiciatis.
         </p>
       </div>
     </>
