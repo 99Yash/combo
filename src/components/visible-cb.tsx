@@ -55,7 +55,7 @@ export function VisibleCB() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="max-w-[300px] justify-between hover:outline hover:outline-2 hover:outline-violet-800 focus:outline-offset-1 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-800"
+            className="max-w-[300px] flex items-center justify-between default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
