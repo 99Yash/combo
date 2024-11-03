@@ -100,7 +100,11 @@ export function StatusBar() {
                 placeholder="Search..."
                 className="text-gray-1000 caret-purple-700"
               />
-              <CommandEmpty>Priority not found.</CommandEmpty>
+
+              <CommandEmpty className="text-gray-900 self-center text-sm py-6">
+                Priority not found.
+              </CommandEmpty>
+
               <CommandList className="scrollbar-hide">
                 <CommandGroup className="m-0.5">
                   {priorities.map((p, i) => {
@@ -110,10 +114,13 @@ export function StatusBar() {
                         key={p.value}
                         value={p.value}
                         onSelect={(currentValue) => {
-                          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                          priorities.some((p) => p.value === currentValue)
-                            ? setVal(currentValue)
-                            : setVal(priorities[0].value);
+                          if (
+                            priorities.some((p) => p.value === currentValue)
+                          ) {
+                            setVal(currentValue);
+                          } else {
+                            setVal(priorities[0].value);
+                          }
                           setOpen(false);
                         }}
                         className="flex items-center justify-between text-gray-1000"

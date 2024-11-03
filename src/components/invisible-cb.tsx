@@ -138,7 +138,7 @@ export function InvisibleCB() {
                             key={item.value}
                             value={item.value}
                             onSelect={(currentValue) => {
-                              setVal(currentValue === val ? '' : currentValue);
+                              setVal(currentValue);
                               setOpenInvisible(false);
                             }}
                             className="flex items-center justify-between text-gray-1000 m-1"

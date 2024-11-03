@@ -121,7 +121,7 @@ export function VisibleCB() {
                             key={item.value}
                             value={item.value}
                             onSelect={(currentValue) => {
-                              setVal(currentValue === val ? '' : currentValue);
+                              setVal(currentValue);
                               setOpenVisible(false);
                             }}
                             className="flex items-center justify-between text-gray-1000 m-1"
