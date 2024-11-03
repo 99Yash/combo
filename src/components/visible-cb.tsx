@@ -89,7 +89,7 @@ export function VisibleCB() {
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[--radix-popover-trigger-width] outline-none p-0 backdrop-blur-md">
+        <PopoverContent className="w-[--radix-popover-trigger-width] outline-none p-0 backdrop-blur-md bg-transparent">
           <Command loop>
             <CommandInput
               placeholder="Search..."
