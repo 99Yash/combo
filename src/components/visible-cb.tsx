@@ -99,13 +99,13 @@ export function VisibleCB() {
               <Info className="size-4" />
               This is info text
             </span>
+            <CommandSeparator className="my-2" />
 
             <CommandEmpty className="text-gray-900 self-center text-sm py-6">
               No framework found.
             </CommandEmpty>
 
             <CommandList className="scrollbar-hide">
-              <CommandSeparator className="my-2" />
               {(() => {
                 let itemCount = 0;
                 return Object.entries(groupedItems).map(
