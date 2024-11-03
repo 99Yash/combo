@@ -56,7 +56,7 @@ export function VisibleCB() {
       <Popover open={openVisible} onOpenChange={setOpenVisible}>
         <PopoverTrigger
           asChild
-          className="hover:outline hover:outline-1 hover:outline-purple-100"
+          className="hover:outline hover:outline-[0.5px] hover:outline-purple-400 focus:outline-purple-400 focus:ring-purple-100 focus:ring-offset-2 focus:outline-[0.5px] focus-within:outline-[0.5px] focus-within:outline-purple-400 focus-within:ring-purple-100 focus-within:ring-offset-2"
         >
           <Button
             variant="outline"

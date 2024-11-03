@@ -75,7 +75,7 @@ export function InvisibleCB() {
             <TooltipTrigger asChild>
               <PopoverTrigger
                 asChild
-                className="hover:outline hover:outline-1 hover:outline-purple-100"
+                className="hover:outline hover:outline-[0.5px] hover:outline-purple-400 focus:outline-purple-400 focus:ring-purple-100 focus:ring-offset-2 focus:outline-1"
               >
                 <Button
                   variant="outline"
