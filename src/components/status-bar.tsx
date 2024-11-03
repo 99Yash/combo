@@ -94,7 +94,7 @@ export function StatusBar() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <PopoverContent className={`p-0 ${GTWalsheim.className}`}>
+          <PopoverContent className="p-0">
             <Command loop>
               <CommandInput
                 placeholder="Search..."

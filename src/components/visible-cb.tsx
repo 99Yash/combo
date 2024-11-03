@@ -16,7 +16,6 @@ import {
 import { allItems, Item } from '@/lib/data';
 import { Check, ChevronDown, Info, X } from 'lucide-react';
 import * as React from 'react';
-import { GTWalsheim } from '../styles/fonts';
 
 const groupedItems = allItems.reduce((acc, item) => {
   if (!acc[item.group]) {
@@ -90,9 +89,7 @@ export function VisibleCB() {
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className} backdrop-blur-md`}
-        >
+        <PopoverContent className="w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className} backdrop-blur-md">
           <Command loop>
             <CommandInput
               placeholder="Search..."

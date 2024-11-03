@@ -107,16 +107,14 @@ export function InvisibleCB() {
             </TooltipTrigger>
             <TooltipContent
               sideOffset={14}
-              className={`${GTWalsheim.className} bg-gray-50 text-gray-1000`}
+              className={`${GTWalsheim.className} bg-gray-50 relative text-gray-1000`}
             >
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
-              <TooltipPrimitive.Arrow className="fill-gray-50" />
+              <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <PopoverContent
-          className={`w-[--radix-popover-trigger-width] relative outline-none p-0 ${GTWalsheim.className} backdrop-blur-sm`}
-        >
+        <PopoverContent className="w-[--radix-popover-trigger-width] relative outline-none p-0 backdrop-blur-sm">
           <Command loop>
             <CommandInput
               placeholder="Search..."
