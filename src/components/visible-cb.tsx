@@ -93,7 +93,7 @@ export function VisibleCB() {
           <Command loop>
             <CommandInput
               placeholder="Search..."
-              className="text-gray-1000 caret-purple-700 my-1"
+              className="text-gray-1000 my-1"
             />
             <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-gray-700">
               <Info className="size-4" />

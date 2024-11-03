@@ -95,7 +95,7 @@ export function StatusBar() {
             <Command loop>
               <CommandInput
                 placeholder="Search..."
-                className="text-gray-1000 caret-purple-700"
+                className="text-gray-1000"
               />
 
               <CommandEmpty className="text-gray-900 self-center text-sm py-6">
