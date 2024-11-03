@@ -18,18 +18,22 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { frameworks, nonReactFrameworks, placeholders } from '@/lib/data';
+import { allItems, Item } from '@/lib/data';
 import { Check, ChevronDown, Hash } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
 
+const groupedItems = allItems.reduce((acc, item) => {
+  if (!acc[item.group]) {
+    acc[item.group] = [];
+  }
+  acc[item.group].push(item);
+  return acc;
+}, {} as Record<string, Item[]>);
+
 export function InvisibleCB() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
   const [val, setVal] = React.useState('');
-
-  const arrays = React.useMemo(() => {
-    return [...placeholders, ...frameworks, ...nonReactFrameworks];
-  }, []);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -50,8 +54,8 @@ export function InvisibleCB() {
       if (e.key >= '1' && e.key <= '9') {
         e.preventDefault();
         const index = parseInt(e.key, 10) - 1;
-        if (index < arrays.length) {
-          setVal(arrays[index].value);
+        if (index < allItems.length) {
+          setVal(allItems[index].value);
           setOpenInvisible(false);
         }
       }
@@ -59,7 +63,7 @@ export function InvisibleCB() {
 
     document.addEventListener('keydown', handleNumberKeyPress);
     return () => document.removeEventListener('keydown', handleNumberKeyPress);
-  }, [openInvisible, arrays]);
+  }, [openInvisible]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -81,8 +85,8 @@ export function InvisibleCB() {
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
-                      const icon = placeholders.find(
-                        (placeholder) => placeholder.value === val
+                      const icon = allItems.find(
+                        (item) => item.value === val
                       )?.icon;
                       return icon ? (
                         React.createElement(icon, {
@@ -93,7 +97,7 @@ export function InvisibleCB() {
                       );
                     })()}
                     {val
-                      ? arrays.find((item) => item.value === val)?.label
+                      ? allItems.find((item) => item.value === val)?.label
                       : 'Select framework...'}
                   </div>
                   <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -122,90 +126,46 @@ export function InvisibleCB() {
             </CommandEmpty>
 
             <CommandList className="scrollbar-hide">
-              <CommandGroup>
-                {placeholders.map((placeholder, i) => (
-                  <CommandItem
-                    key={placeholder.value}
-                    value={placeholder.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenInvisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000 m-1"
-                  >
-                    <div className="flex items-center gap-2">
-                      {placeholder.icon && (
-                        <placeholder.icon className="size-4 shrink-0" />
-                      )}
-                      {placeholder.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === placeholder.value && (
-                        <Check className="size-4 opacity-50" />
-                      )}
-                      {i < 9 && (
-                        <span className="text-xs opacity-50">{i + 1}</span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-
-              <CommandGroup heading="React">
-                {frameworks.map((framework, i) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenInvisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000 m-1"
-                  >
-                    <div className="flex items-center gap-2">
-                      {framework.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === framework.value && (
-                        <Check className="size-4 opacity-50" />
-                      )}
-                      {i + placeholders.length < 9 && (
-                        <span className="text-xs opacity-50">
-                          {i + placeholders.length + 1}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-
-              <CommandGroup heading="Non-React">
-                {nonReactFrameworks.map((framework, i) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenInvisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000 m-1"
-                  >
-                    <div className="flex items-center gap-2">
-                      {framework.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === framework.value && (
-                        <Check className="size-4 text-gray-1000/40" />
-                      )}
-                      {i + frameworks.length + placeholders.length < 9 && (
-                        <span className="text-xs text-gray-1000/40">
-                          {i + placeholders.length + frameworks.length + 1}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              {(() => {
+                let itemCount = 0;
+                return Object.entries(groupedItems).map(
+                  ([groupName, items]) => (
+                    <CommandGroup key={groupName} heading={groupName}>
+                      {items.map((item) => {
+                        itemCount++;
+                        return (
+                          <CommandItem
+                            key={item.value}
+                            value={item.value}
+                            onSelect={(currentValue) => {
+                              setVal(currentValue === val ? '' : currentValue);
+                              setOpenInvisible(false);
+                            }}
+                            className="flex items-center justify-between text-gray-1000 m-1"
+                          >
+                            <div className="flex items-center gap-2">
+                              {item.icon && (
+                                <item.icon className="size-4 shrink-0" />
+                              )}
+                              {item.label}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {val === item.value && (
+                                <Check className="size-4 opacity-50" />
+                              )}
+                              {itemCount <= 9 && (
+                                <span className="text-xs opacity-50">
+                                  {itemCount}
+                                </span>
+                              )}
+                            </div>
+                          </CommandItem>
+                        );
+                      })}
+                    </CommandGroup>
+                  )
+                );
+              })()}
             </CommandList>
           </Command>
         </PopoverContent>

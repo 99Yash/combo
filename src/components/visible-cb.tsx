@@ -13,18 +13,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { frameworks, nonReactFrameworks, placeholders } from '@/lib/data';
+import { allItems, Item } from '@/lib/data';
 import { Check, ChevronDown, Info, X } from 'lucide-react';
 import * as React from 'react';
 import { GTWalsheim } from '../styles/fonts';
 
+const groupedItems = allItems.reduce((acc, item) => {
+  if (!acc[item.group]) {
+    acc[item.group] = [];
+  }
+  acc[item.group].push(item);
+  return acc;
+}, {} as Record<string, Item[]>);
+
 export function VisibleCB() {
   const [openVisible, setOpenVisible] = React.useState(false);
   const [val, setVal] = React.useState('');
-
-  const arrays = React.useMemo(() => {
-    return [...placeholders, ...frameworks, ...nonReactFrameworks];
-  }, []);
 
   React.useEffect(() => {
     if (!openVisible) return;
@@ -33,8 +37,8 @@ export function VisibleCB() {
       if (e.key >= '1' && e.key <= '9') {
         e.preventDefault();
         const index = parseInt(e.key, 10) - 1;
-        if (index < arrays.length) {
-          setVal(arrays[index].value);
+        if (index < allItems.length) {
+          setVal(allItems[index].value);
           setOpenVisible(false);
         }
       }
@@ -42,7 +46,7 @@ export function VisibleCB() {
 
     document.addEventListener('keydown', handleNumberKeyPress);
     return () => document.removeEventListener('keydown', handleNumberKeyPress);
-  }, [openVisible, arrays]);
+  }, [openVisible]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -62,8 +66,8 @@ export function VisibleCB() {
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
-                const selectedIcon = placeholders.find(
-                  (placeholder) => placeholder.value === val
+                const selectedIcon = allItems.find(
+                  (item) => item.value === val
                 )?.icon;
 
                 if (selectedIcon) {
@@ -80,7 +84,7 @@ export function VisibleCB() {
               })()}
 
               {val
-                ? arrays.find((item) => item.value === val)?.label
+                ? allItems.find((item) => item.value === val)?.label
                 : 'No Framework'}
             </div>
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -105,93 +109,46 @@ export function VisibleCB() {
 
             <CommandList className="scrollbar-hide">
               <CommandSeparator className="my-2" />
-
-              <CommandGroup className="m-0.5">
-                {placeholders.map((framework, i) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenVisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000"
-                  >
-                    <div className="flex items-center gap-2">
-                      {framework.icon && (
-                        <framework.icon className="size-4 shrink-0" />
-                      )}
-                      {framework.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === framework.value && (
-                        <Check className="size-4 text-gray-1000/40" />
-                      )}
-                      {i < 9 && (
-                        <span className="text-xs text-gray-1000/40">
-                          {i + 1}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-
-              <CommandGroup heading="React" className="m-0.5">
-                {frameworks.map((framework, i) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenVisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000"
-                  >
-                    <div className="flex items-center gap-2">
-                      {framework.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === framework.value && (
-                        <Check className="size-4 text-gray-1000/40" />
-                      )}
-                      {i + placeholders.length < 9 && (
-                        <span className="text-xs text-gray-1000/40">
-                          {i + placeholders.length + 1}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-
-              <CommandGroup heading="Non-React">
-                {nonReactFrameworks.map((framework, i) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={(currentValue) => {
-                      setVal(currentValue === val ? '' : currentValue);
-                      setOpenVisible(false);
-                    }}
-                    className="flex items-center justify-between text-gray-1000"
-                  >
-                    <div className="flex items-center gap-2">
-                      {framework.label}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {val === framework.value && (
-                        <Check className="size-4 text-gray-1000/40" />
-                      )}
-                      {i + frameworks.length + placeholders.length < 9 && (
-                        <span className="text-xs text-gray-1000/40">
-                          {i + frameworks.length + placeholders.length + 1}
-                        </span>
-                      )}
-                    </div>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              {(() => {
+                let itemCount = 0;
+                return Object.entries(groupedItems).map(
+                  ([groupName, items]) => (
+                    <CommandGroup key={groupName} heading={groupName}>
+                      {items.map((item) => {
+                        itemCount++;
+                        return (
+                          <CommandItem
+                            key={item.value}
+                            value={item.value}
+                            onSelect={(currentValue) => {
+                              setVal(currentValue === val ? '' : currentValue);
+                              setOpenVisible(false);
+                            }}
+                            className="flex items-center justify-between text-gray-1000 m-1"
+                          >
+                            <div className="flex items-center gap-2">
+                              {item.icon && (
+                                <item.icon className="size-4 shrink-0" />
+                              )}
+                              {item.label}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {val === item.value && (
+                                <Check className="size-4 opacity-50" />
+                              )}
+                              {itemCount <= 9 && (
+                                <span className="text-xs opacity-50">
+                                  {itemCount}
+                                </span>
+                              )}
+                            </div>
+                          </CommandItem>
+                        );
+                      })}
+                    </CommandGroup>
+                  )
+                );
+              })()}
             </CommandList>
           </Command>
         </PopoverContent>

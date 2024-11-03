@@ -8,75 +8,87 @@ import {
   SignalMedium,
 } from 'lucide-react';
 
-export const frameworks = [
-  {
-    value: 'sveltekit',
-    label: 'SvelteKit',
-    group: 'react',
-  },
-  {
-    value: 'sveltelong',
-    label: 'SvelteKit is longer than usual',
-    group: 'react',
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
-    group: 'react',
-  },
-  {
-    value: 'remix',
-    label: 'Remix',
-    group: 'react',
-  },
-  {
-    value: 'astro',
-    label: 'Astro',
-    group: 'react',
-  },
-  {
-    value: 'gatsby',
-    label: 'Gatsby',
-    group: 'react',
-  },
-  {
-    value: 'react',
-    label: 'React',
-    group: 'react',
-  },
-] as const;
+export type Item = {
+  value: string;
+  label: string;
+  icon?: React.ElementType;
+  group: string;
+};
 
-export const placeholders = [
+export const allItems: Item[] = [
+  // Placeholders
   {
     value: 'Select placeholder...',
     label: 'Select placeholder...',
     icon: Hash,
+    group: 'Placeholders',
   },
   {
     value: 'Next.js',
     label: 'Next.js',
     icon: Activity,
+    group: 'Placeholders',
   },
-] as const;
 
-export const nonReactFrameworks = [
+  // React Frameworks
+  {
+    value: 'sveltekit',
+    label: 'SvelteKit',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'sveltelong',
+    label: 'SvelteKit is longer than usual',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'nuxt.js',
+    label: 'Nuxt.js',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'remix',
+    label: 'Remix',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'astro',
+    label: 'Astro',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'gatsby',
+    label: 'Gatsby',
+    group: 'React Frameworks',
+  },
+  {
+    value: 'react',
+    label: 'React',
+    group: 'React Frameworks',
+  },
+
+  // Non-React Frameworks
   {
     value: 'php',
     label: 'PHP',
+    group: 'Non-React Frameworks',
   },
   {
     value: 'python',
     label: 'Python',
+    group: 'Non-React Frameworks',
   },
   {
     value: 'java',
     label: 'Java',
+    group: 'Non-React Frameworks',
   },
   {
     value: 'c',
     label: 'C',
+    group: 'Non-React Frameworks',
   },
-];
+] as const;
 
 export const priorities = [
   {
