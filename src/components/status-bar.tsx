@@ -56,7 +56,10 @@ export function StatusBar() {
           <TooltipProvider delayDuration={100}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <PopoverTrigger asChild>
+                <PopoverTrigger
+                  asChild
+                  className="hover:outline-none focus:outline-none focus-within:outline-none focus:border-none focus-within:border-none"
+                >
                   <Button
                     variant="outline"
                     size="icon"
@@ -103,7 +106,7 @@ export function StatusBar() {
               </CommandEmpty>
 
               <CommandList className="scrollbar-hide">
-                <CommandGroup className="m-0.5">
+                <CommandGroup className="m-1.5">
                   {priorities.map((p, i) => {
                     const icon = p.icon;
                     return (
@@ -150,9 +153,7 @@ export function StatusBar() {
         <ExternalLink className="size-4 text-gray-700" />
         <p className="opacity-50 max-w-3xl">
           GT Walshiem is a typeface designed by Adrian Frutiger for the graphic
-          design studio of Adrian Frutiger. Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Accusamus, sapiente blanditiis?
-          Perspiciatis.
+          design studio of Adrian Frutiger.
         </p>
       </div>
     </div>
