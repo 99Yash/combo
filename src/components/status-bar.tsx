@@ -18,7 +18,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { priorities } from '@/lib/data';
-import { GTWalsheim } from '@/styles/fonts';
 import { Check, ExternalLink, MoreHorizontal } from 'lucide-react';
 import React from 'react';
 import { Button } from './ui/button';
@@ -46,7 +45,7 @@ export function StatusBar() {
   }, [open]);
 
   return (
-    <>
+    <div className="mt-40">
       <h3 className="font-medium tracking-tight">
         Priority Selector + Tooltip
       </h3>
@@ -83,9 +82,7 @@ export function StatusBar() {
                 </PopoverTrigger>
               </TooltipTrigger>
 
-              <TooltipContent
-                className={`${GTWalsheim.className} bg-muted text-gray-1000`}
-              >
+              <TooltipContent className="bg-muted text-gray-1000">
                 {val
                   ? `Priority: ${
                       priorities.find((p) => p.value === val)?.label
@@ -158,6 +155,6 @@ export function StatusBar() {
           Perspiciatis.
         </p>
       </div>
-    </>
+    </div>
   );
 }

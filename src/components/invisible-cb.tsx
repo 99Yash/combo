@@ -16,7 +16,6 @@ import { allItems, Item } from '@/lib/data';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { Check, ChevronDown, Hash } from 'lucide-react';
 import * as React from 'react';
-import { GTWalsheim } from '../styles/fonts';
 import {
   Tooltip,
   TooltipContent,
@@ -107,7 +106,7 @@ export function InvisibleCB() {
             </TooltipTrigger>
             <TooltipContent
               sideOffset={14}
-              className={`${GTWalsheim.className} bg-gray-50 relative text-gray-1000`}
+              className="bg-gray-50 text-gray-1000"
             >
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
               <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
