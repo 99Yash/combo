@@ -74,7 +74,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-1 hover:outline-purple-100 focus:ring-1 focus:ring-purple-100 focus:ring-offset-2 focus-visible:ring-purple-400"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
@@ -109,7 +109,10 @@ export function InvisibleCB() {
           className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
-            <CommandInput placeholder="Search..." className="text-gray-1000" />
+            <CommandInput
+              placeholder="Search..."
+              className="text-gray-1000 caret-purple-700"
+            />
 
             <CommandEmpty className="text-gray-900 self-center text-sm py-6">
               No framework found.

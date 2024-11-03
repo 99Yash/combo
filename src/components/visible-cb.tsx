@@ -55,7 +55,7 @@ export function VisibleCB() {
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="max-w-[300px] flex items-center justify-between focus:outline-violet-600 default:ring hover:outline hover:outline-2 hover:outline-violet-700 focus:ring-1 focus:ring-violet-700 focus:ring-offset-2 focus-visible:ring-violet-500"
+            className="max-w-[300px] flex items-center justify-between focus:outline-purple-100 default:ring hover:outline hover:outline-1 hover:outline-purple-100 focus:ring-1 focus:ring-purple-100 focus:ring-offset-2 focus-visible:ring-purple-400"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
@@ -87,7 +87,10 @@ export function VisibleCB() {
           className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className}`}
         >
           <Command loop>
-            <CommandInput placeholder="Search..." className="text-gray-1000" />
+            <CommandInput
+              placeholder="Search..."
+              className="text-gray-1000 caret-purple-700"
+            />
             <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-gray-700">
               <Info className="size-4" />
               This is info text

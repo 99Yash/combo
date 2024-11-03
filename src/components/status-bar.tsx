@@ -98,7 +98,7 @@ export function StatusBar() {
             <Command loop>
               <CommandInput
                 placeholder="Search..."
-                className="text-gray-1000 caret-violet-500"
+                className="text-gray-1000 caret-purple-700"
               />
               <CommandEmpty>Priority not found.</CommandEmpty>
               <CommandList className="scrollbar-hide">

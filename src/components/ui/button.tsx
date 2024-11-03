@@ -12,7 +12,8 @@ const buttonVariants = cva(
         default: 'bg-primary text-primary-foreground shadow',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline: 'border border-input bg-background',
+        outline:
+          'flex w-full items-center justify-between font-normal gap-2 px-3 py-2 body-lg rounded-lg border-1.5 transition-colors default-ring bg-gray-25 text-gray-950 placeholder:text-gray-800 border-gray-400 hover:border-purple-300 focus-visible:border-purple-600 [&>svg]:flex-shrink-0 data-[is-error=true]:border-red-600 data-[is-error=true]:hover:border-red-600 data-[is-error=true]:focus-visible:border-red-600 data-[is-error=true]:focus-visible:ring-red-600 max-w-[250px] mt-1',
         secondary:
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
