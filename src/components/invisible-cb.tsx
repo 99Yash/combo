@@ -69,12 +69,15 @@ export function InvisibleCB() {
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <PopoverTrigger asChild>
+              <PopoverTrigger
+                asChild
+                className="hover:outline hover:outline-1 hover:outline-purple-100"
+              >
                 <Button
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="max-w-[300px] justify-between default:ring hover:outline hover:outline-1 hover:outline-purple-100 focus:ring-1 focus:ring-purple-100 focus:ring-offset-2 focus-visible:ring-purple-400"
+                  className="flex max-w-[300px] items-center justify-between gap-2 px-3 py-2 rounded-lg text-gray-900 border-gray-300"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {
