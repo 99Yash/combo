@@ -50,12 +50,15 @@ export function VisibleCB() {
         Combobox (Visible Placeholder)
       </span>
       <Popover open={openVisible} onOpenChange={setOpenVisible}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger
+          asChild
+          className="hover:outline hover:outline-1 hover:outline-purple-100"
+        >
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={openVisible}
-            className="max-w-[300px] flex items-center justify-between focus:outline-purple-100 default:ring hover:outline hover:outline-1 hover:outline-purple-100 focus:ring-1 focus:ring-purple-100 focus:ring-offset-2 focus-visible:ring-purple-400"
+            className="flex max-w-[300px] items-center justify-between gap-2 px-3 py-2 rounded-lg text-gray-900 border-gray-300"
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
@@ -89,7 +92,7 @@ export function VisibleCB() {
           <Command loop>
             <CommandInput
               placeholder="Search..."
-              className="text-gray-1000 caret-purple-700"
+              className="text-gray-1000 caret-purple-700 my-1"
             />
             <span className="text-xs ml-2.5 flex items-center gap-1.5 pt-2 px-0.5 text-gray-700">
               <Info className="size-4" />
