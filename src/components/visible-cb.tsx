@@ -89,7 +89,7 @@ export function VisibleCB() {
             <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className} backdrop-blur-md">
+        <PopoverContent className="w-[--radix-popover-trigger-width] outline-none p-0 backdrop-blur-md">
           <Command loop>
             <CommandInput
               placeholder="Search..."
@@ -148,6 +148,7 @@ export function VisibleCB() {
               })()}
             </CommandList>
           </Command>
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
         </PopoverContent>
       </Popover>
     </div>
