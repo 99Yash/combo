@@ -91,7 +91,7 @@ export function VisibleCB() {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className} backdrop-blur-md`}
         >
           <Command loop>
             <CommandInput
@@ -124,7 +124,7 @@ export function VisibleCB() {
                               setVal(currentValue);
                               setOpenVisible(false);
                             }}
-                            className="flex items-center justify-between text-gray-1000 m-1"
+                            className="flex items-center justify-between text-gray-1000 m-1.5"
                           >
                             <div className="flex items-center gap-2">
                               {item.icon && (

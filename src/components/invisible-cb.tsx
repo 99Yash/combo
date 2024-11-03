@@ -12,16 +12,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { allItems, Item } from '@/lib/data';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { Check, ChevronDown, Hash } from 'lucide-react';
+import * as React from 'react';
+import { GTWalsheim } from '../styles/fonts';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { allItems, Item } from '@/lib/data';
-import { Check, ChevronDown, Hash } from 'lucide-react';
-import * as React from 'react';
-import { GTWalsheim } from '../styles/fonts';
+} from './ui/tooltip';
 
 const groupedItems = allItems.reduce((acc, item) => {
   if (!acc[item.group]) {
@@ -109,11 +110,12 @@ export function InvisibleCB() {
               className={`${GTWalsheim.className} bg-gray-50 text-gray-1000`}
             >
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
+              <TooltipPrimitive.Arrow className="fill-gray-50" />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <PopoverContent
-          className={`w-[--radix-popover-trigger-width] outline-none p-0 ${GTWalsheim.className}`}
+          className={`w-[--radix-popover-trigger-width] relative outline-none p-0 ${GTWalsheim.className} backdrop-blur-sm`}
         >
           <Command loop>
             <CommandInput
@@ -141,7 +143,7 @@ export function InvisibleCB() {
                               setVal(currentValue);
                               setOpenInvisible(false);
                             }}
-                            className="flex items-center justify-between text-gray-1000 m-1"
+                            className="flex items-center justify-between text-gray-1000 m-1.5"
                           >
                             <div className="flex items-center gap-2">
                               {item.icon && (
@@ -168,6 +170,7 @@ export function InvisibleCB() {
               })()}
             </CommandList>
           </Command>
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
         </PopoverContent>
       </Popover>
     </div>
