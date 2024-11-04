@@ -167,7 +167,6 @@ export function InvisibleCB() {
               })()}
             </CommandList>
           </Command>
-          <div className="absolute bottom-0 left-0 w-[99%] h-12 bg-gradient-to-t from-black to-transparent pointer-events-none" />
         </PopoverContent>
       </Popover>
     </div>
