@@ -46,7 +46,7 @@ export function StatusBar() {
   }, [open]);
 
   return (
-    <div className="mt-44">
+    <div className="mt-56">
       <h3 className="font-medium tracking-tight">
         Priority Selector + Tooltip
       </h3>
@@ -155,8 +155,7 @@ export function StatusBar() {
         <ExternalLink className="size-4 text-gray-700" />
         <p className="opacity-50 max-w-3xl">
           GT Walshiem is a typeface designed by Adrian Frutiger for the graphic
-          design studio of Adrian Frutiger. There is a small UX issue with the
-          scrolling
+          design studio of Adrian Frutiger.
         </p>
       </div>
     </div>
