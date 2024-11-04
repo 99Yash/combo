@@ -23,13 +23,16 @@ import {
   TooltipTrigger,
 } from './ui/tooltip';
 
-const groupedItems = allItems.reduce((acc, item) => {
-  if (!acc[item.group]) {
-    acc[item.group] = [];
-  }
-  acc[item.group].push(item);
-  return acc;
-}, {} as Record<string, Item[]>);
+const groupedItems = allItems.reduce(
+  (acc, item) => {
+    if (!acc[item.group]) {
+      acc[item.group] = [];
+    }
+    acc[item.group].push(item);
+    return acc;
+  },
+  {} as Record<string, Item[]>
+);
 
 export function InvisibleCB() {
   const [openInvisible, setOpenInvisible] = React.useState(false);
@@ -106,7 +109,7 @@ export function InvisibleCB() {
             </TooltipTrigger>
             <TooltipContent sideOffset={14}>
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
-              <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
+              <TooltipPrimitive.Arrow className="fill-gray-300 bottom-0 left-1/2" />
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

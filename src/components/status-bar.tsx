@@ -92,7 +92,7 @@ export function StatusBar() {
                       priorities.find((p) => p.value === val)?.label
                     }`
                   : 'Select priority'}
-                <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
+                <TooltipPrimitive.Arrow className="fill-gray-300 bottom-0 left-1/2" />
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
