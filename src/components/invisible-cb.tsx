@@ -81,7 +81,7 @@ export function InvisibleCB() {
                   variant="outline"
                   role="combobox"
                   aria-expanded={openInvisible}
-                  className="flex max-w-[300px] items-center justify-between gap-2 px-3 py-2 rounded-lg text-gray-900 border-gray-300"
+                  className="flex max-w-[300px] items-center justify-between gap-2 px-3 text-gray-950 py-2 rounded-lg border-gray-400"
                 >
                   <div className="flex items-center line-clamp-1 gap-2">
                     {(() => {

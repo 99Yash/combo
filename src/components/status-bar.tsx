@@ -66,7 +66,7 @@ export function StatusBar() {
                     size="icon"
                     role="combobox"
                     aria-expanded={open}
-                    className="border-none bg-transparent"
+                    className="border-none bg-transparent text-gray-950"
                   >
                     <div className="flex items-center gap-2">
                       {(() => {
