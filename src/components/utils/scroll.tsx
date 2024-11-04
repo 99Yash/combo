@@ -17,7 +17,7 @@ export function Scroll({ children }: React.PropsWithChildren) {
       </div>
       {/* Bottom scroll fade */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 hidden h-7 w-full rounded-b-md bg-gradient-to-t from-gray-400 sm:block"
+        className="pointer-events-none absolute bottom-0 left-0 hidden h-7 w-full rounded-b-md bg-gradient-to-t from-gray-100 sm:block"
         style={{ opacity: 1 - Math.pow(scrollProgress, 2) }}
       ></div>
     </>
