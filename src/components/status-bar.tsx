@@ -46,7 +46,7 @@ export function StatusBar() {
   }, [open]);
 
   return (
-    <div className="mt-40">
+    <div className="mt-44">
       <h3 className="font-medium tracking-tight">
         Priority Selector + Tooltip
       </h3>

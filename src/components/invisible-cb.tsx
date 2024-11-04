@@ -137,9 +137,9 @@ export function InvisibleCB() {
                               setVal(currentValue);
                               setOpenInvisible(false);
                             }}
-                            className="flex items-center justify-between text-gray-1000 m-1.5"
+                            className="flex items-center justify-between text-gray-900 m-1.5"
                           >
-                            <div className="flex items-center gap-2">
+                            <div className="flex line-clamp-1 items-center gap-2">
                               {item.icon && (
                                 <item.icon className="size-4 shrink-0" />
                               )}

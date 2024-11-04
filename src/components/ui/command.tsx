@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { Scroll } from '../utils/scroll';
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -56,11 +57,13 @@ const CommandList = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, ...props }, ref) => (
-  <CommandPrimitive.List
-    ref={ref}
-    className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
-    {...props}
-  />
+  <Scroll>
+    <CommandPrimitive.List
+      ref={ref}
+      className={cn('max-h-[300px] overflow-x-hidden', className)}
+      {...props}
+    />
+  </Scroll>
 ));
 
 CommandList.displayName = CommandPrimitive.List.displayName;
