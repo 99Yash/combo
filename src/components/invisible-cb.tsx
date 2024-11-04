@@ -104,10 +104,7 @@ export function InvisibleCB() {
                 </Button>
               </PopoverTrigger>
             </TooltipTrigger>
-            <TooltipContent
-              sideOffset={14}
-              className="bg-gray-50 text-gray-1000"
-            >
+            <TooltipContent sideOffset={14}>
               Select framework &nbsp; &nbsp; ⌘ &nbsp; E
               <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
             </TooltipContent>

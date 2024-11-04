@@ -18,6 +18,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { priorities } from '@/lib/data';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { Check, ExternalLink, MoreHorizontal } from 'lucide-react';
 import React from 'react';
 import { Button } from './ui/button';
@@ -85,12 +86,13 @@ export function StatusBar() {
                 </PopoverTrigger>
               </TooltipTrigger>
 
-              <TooltipContent className="bg-muted text-gray-1000">
+              <TooltipContent>
                 {val
                   ? `Priority: ${
                       priorities.find((p) => p.value === val)?.label
                     }`
                   : 'Select priority'}
+                <TooltipPrimitive.Arrow className="fill-gray-50 bottom-0 left-1/2" />
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
