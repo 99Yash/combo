@@ -14,14 +14,21 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { allItems, Item } from '@/lib/data';
-import { Check, ChevronDown, Info, X } from 'lucide-react';
+import { Check, ChevronDown, Hash, Info } from 'lucide-react';
 import * as React from 'react';
 
 const groupedItems = allItems.reduce((acc, item) => {
-  if (!acc[item.group]) {
-    acc[item.group] = [];
+  if (item.group) {
+    if (!acc[item.group]) {
+      acc[item.group] = [];
+    }
+    acc[item.group].push(item);
+  } else {
+    if (!acc.ungrouped) {
+      acc.ungrouped = [];
+    }
+    acc.ungrouped.push(item);
   }
-  acc[item.group].push(item);
   return acc;
 }, {} as Record<string, Item[]>);
 
@@ -65,23 +72,13 @@ export function VisibleCB() {
           >
             <div className="flex items-center line-clamp-1 gap-2">
               {(() => {
-                const selectedIcon = allItems.find(
-                  (item) => item.value === val
-                )?.icon;
-
-                if (selectedIcon) {
-                  return React.createElement(selectedIcon, {
-                    className: 'size-4 shrink-0',
-                  });
-                }
-
-                if (!val) {
-                  return <X className="size-4 shrink-0" />;
-                }
-
-                return null;
+                const icon = allItems.find((item) => item.value === val);
+                return icon?.icon ? (
+                  <icon.icon className="size-4 shrink-0" />
+                ) : val ? null : (
+                  <Hash className="size-4 shrink-0" />
+                );
               })()}
-
               {val
                 ? allItems.find((item) => item.value === val)?.label
                 : 'No Framework'}

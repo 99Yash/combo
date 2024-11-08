@@ -2,6 +2,7 @@ import {
   Activity,
   AlertCircle,
   Hash,
+  LucideIcon,
   MoreHorizontal,
   SignalHigh,
   SignalLow,
@@ -11,8 +12,8 @@ import {
 export type Item = {
   value: string;
   label: string;
-  icon?: React.ElementType;
-  group: string;
+  icon?: React.ComponentType<React.SVGProps<SVGElement>> | LucideIcon;
+  group?: string;
 };
 
 export const allItems: Item[] = [
@@ -116,4 +117,4 @@ export const priorities = [
     label: 'Urgent',
     icon: AlertCircle,
   },
-] as const;
+] satisfies Item[];

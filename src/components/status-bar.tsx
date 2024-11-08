@@ -23,7 +23,7 @@ import { Check, ExternalLink, MoreHorizontal } from 'lucide-react';
 import React from 'react';
 import { Button } from './ui/button';
 
-export function StatusBar() {
+export function StatusBarCB() {
   const [open, setOpen] = React.useState(false);
   const [val, setVal] = React.useState('');
 
@@ -46,7 +46,7 @@ export function StatusBar() {
   }, [open]);
 
   return (
-    <div className="mt-56">
+    <div className="mt-1  6">
       <h3 className="font-medium tracking-tight">
         Priority Selector + Tooltip
       </h3>
