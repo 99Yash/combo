@@ -1,8 +1,15 @@
 import { allItems } from '@/lib/data';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { ChevronDown, Hash } from 'lucide-react';
 import * as React from 'react';
 import { Button } from '../ui/button';
 import { SingleCombobox } from '../ui/combobox';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 export function Invisible() {
   const [search, setSearch] = React.useState('');
@@ -28,27 +35,39 @@ export function Invisible() {
       open={open}
       onOpenChange={setOpen}
       trigger={
-        <Button
-          id="combobox-trigger"
-          variant="outline"
-          role="combobox"
-          className="text-gray-950 max-w-[300px] items-center justify-between gap-2 rounded-lg border-gray-400 hover:outline hover:outline-[0.5px] hover:outline-purple-400 focus:outline-purple-400 focus:ring-purple-100 focus:ring-offset-2 focus:outline-1"
-        >
-          <div className="flex items-center gap-2">
-            {(() => {
-              const icon = allItems.find((item) => item.value === search);
-              return icon?.icon ? (
-                <icon.icon className="size-4 shrink-0" />
-              ) : search ? null : (
-                <Hash className="size-4 shrink-0" />
-              );
-            })()}
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                id="combobox-trigger"
+                variant="outline"
+                role="combobox"
+                className="text-gray-950 max-w-[300px] items-center justify-between gap-2 rounded-lg border-gray-400 hover:outline hover:outline-[0.5px] hover:outline-purple-400 focus:outline-purple-400 focus:ring-purple-100 focus:ring-offset-2 focus:outline-1"
+              >
+                <div className="flex items-center gap-2">
+                  {(() => {
+                    const icon = allItems.find((item) => item.value === search);
+                    return icon?.icon ? (
+                      <icon.icon className="size-4 shrink-0" />
+                    ) : search ? null : (
+                      <Hash className="size-4 shrink-0" />
+                    );
+                  })()}
 
-            {allItems.find((item) => item.value === search)?.label ??
-              'No framework'}
-          </div>
-          <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
-        </Button>
+                  {allItems.find((item) => item.value === search)?.label ??
+                    'No framework'}
+                </div>
+                <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={14}>
+              <p className="text-sm text-gray-950">
+                Select framework &nbsp; &nbsp; ⌘ &nbsp; E
+              </p>
+              <TooltipPrimitive.Arrow className="fill-gray-300 bottom-0 left-1/2" />
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       }
     />
   );
