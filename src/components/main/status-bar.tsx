@@ -5,26 +5,7 @@ import { Button } from '../ui/button';
 import { SingleCombobox } from '../ui/combobox';
 
 export function StatusBar() {
-  const [open, setOpen] = React.useState(false);
   const [status, setStatus] = React.useState('');
-
-  React.useEffect(() => {
-    if (!open) return;
-
-    const handleNumberKeyPress = (e: KeyboardEvent) => {
-      if (e.key >= '1' && e.key <= '9') {
-        e.preventDefault();
-        const index = parseInt(e.key, 10) - 1;
-        if (index < priorities.length) {
-          setStatus(priorities[index].value);
-          setOpen(false);
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleNumberKeyPress);
-    return () => document.removeEventListener('keydown', handleNumberKeyPress);
-  }, [open]);
 
   return (
     <div className="mt-56 ml-3">

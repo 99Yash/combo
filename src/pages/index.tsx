@@ -1,10 +1,10 @@
-import { InvisibleCB } from '@/components/invisible-cb';
 import { Invisible } from '@/components/main/invisible';
 import { StatusBar } from '@/components/main/status-bar';
 import { Visible } from '@/components/main/visible';
 import { StatusBarCB } from '@/components/status-bar';
 import { VisibleCB } from '@/components/visible-cb';
 import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import { GTWalsheim } from '../styles/fonts';
 
@@ -30,9 +30,11 @@ export default function Component() {
 
         <StatusBar />
 
-        <p>Old Version</p>
+        <p className="flex items-center">
+          Old Version <ArrowDown className="ml-1 size-4 opacity-50" />
+        </p>
 
-        <InvisibleCB />
+        {/* <InvisibleCB /> */}
 
         <VisibleCB />
 

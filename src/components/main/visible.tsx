@@ -6,6 +6,11 @@ export function Visible() {
   const [search, setSearch] = React.useState('');
 
   return (
-    <SingleCombobox options={allItems} value={search} setValue={setSearch} />
+    <SingleCombobox
+      placeholder="No framework..."
+      options={allItems}
+      value={search}
+      setValue={setSearch}
+    />
   );
 }

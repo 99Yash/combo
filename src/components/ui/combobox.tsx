@@ -27,6 +27,8 @@ interface SingleComboboxProps {
   trigger?: React.ReactNode;
   onClose?: () => void;
   placeholder?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 const SingleCombobox = React.forwardRef<HTMLButtonElement, SingleComboboxProps>(
@@ -37,13 +39,18 @@ const SingleCombobox = React.forwardRef<HTMLButtonElement, SingleComboboxProps>(
       setValue,
       trigger,
       onClose,
+      open: controlledOpen,
+      onOpenChange: controlledOnOpenChange,
       matchTriggerWidth,
       placeholder = 'Select an option...',
       ...rest
     },
     ref
   ) => {
-    const [open, setOpen] = React.useState(false);
+    const [internalOpen, setInternalOpen] = React.useState(false);
+
+    const open = controlledOpen ?? internalOpen;
+    const setOpen = controlledOnOpenChange ?? setInternalOpen;
     const [search, setSearch] = React.useState('');
 
     const groupedItems = options.reduce((acc, item) => {
@@ -64,18 +71,6 @@ const SingleCombobox = React.forwardRef<HTMLButtonElement, SingleComboboxProps>(
     }, {} as Record<string, Item[]>);
 
     React.useEffect(() => {
-      const down = (e: KeyboardEvent) => {
-        if (e.key === 'e' && (e.metaKey || e.ctrlKey)) {
-          e.preventDefault();
-          setOpen((open) => !open);
-        }
-      };
-
-      document.addEventListener('keydown', down);
-      return () => document.removeEventListener('keydown', down);
-    }, []);
-
-    React.useEffect(() => {
       if (!open) return;
 
       const handleNumberKeyPress = (e: KeyboardEvent) => {
@@ -92,7 +87,7 @@ const SingleCombobox = React.forwardRef<HTMLButtonElement, SingleComboboxProps>(
       document.addEventListener('keydown', handleNumberKeyPress);
       return () =>
         document.removeEventListener('keydown', handleNumberKeyPress);
-    }, [open, options, setValue]);
+    }, [open, options, setOpen, setValue]);
 
     const handleSelect = React.useCallback(
       (currentValue: string) => {
